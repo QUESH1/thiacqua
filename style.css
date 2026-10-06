@@ -113,6 +113,16 @@ h2 {
 .primary { background: var(--blue); color: #fff; }
 .primary:hover { background: #0f5d9e; }
 .light { background: var(--yellow); color: var(--ink); }
+.ghost {
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); padding: 15px 24px;
+  box-shadow: 0 5px 0 var(--ink);
+}
+.ghost:hover { background: #fff; box-shadow: 0 8px 0 var(--ink); }
+.ghost:active { box-shadow: 0 2px 0 var(--ink); }
+.ghost span { font-size: 18px; }
+.ghost[href^="#"]:hover span { transform: translateY(3px); }
+.about-copy .ghost, .inclusion-copy .ghost { margin-top: 10px; }
 
 .text-link {
   font-size: 15.5px; font-weight: 700;
@@ -313,6 +323,30 @@ nav a:not(.nav-contact):hover::after, nav a[aria-current="true"]::after { transf
 .coming-soon strong span { color: var(--orange); }
 .coming-soon p { font-size: 16px; color: var(--muted); max-width: 300px; margin: 0 auto; }
 
+/* Countries visited: flags as little travel stickers */
+.passport {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: minmax(200px, .8fr) 2fr; gap: 24px 48px; align-items: center;
+  margin-top: 20px; padding: 32px 36px;
+  background: var(--paper); border: 2px solid #f0dcb9; border-radius: 28px;
+}
+.passport-head p { margin: 0; color: var(--muted); font-size: 16px; }
+.passport-head .passport-count { font: 500 22px/1.1 var(--font-display); color: var(--ink); margin-bottom: 8px; }
+.passport-count strong { font-size: 56px; color: var(--orange); font-weight: 500; margin-right: 6px; vertical-align: -6px; }
+.flags {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 22px 10px;
+}
+.flags li { flex: 0 0 96px; }
+.flags li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 14px; font-weight: 700; line-height: 1.25; }
+.flags img {
+  width: 64px; height: 48px; object-fit: cover; border-radius: 9px;
+  border: 4px solid #fff; box-shadow: 0 3px 0 #e8d7b6, 0 6px 14px #173c711a;
+  transform: rotate(-4deg); transition: transform .35s var(--ease-out);
+}
+.flags li:nth-child(even) img { transform: rotate(4deg); }
+.flags li:hover img { transform: rotate(0) translateY(-4px) scale(1.06); }
+
 /* Book */
 .book {
   max-width: none; background: var(--navy); color: #fff; position: relative; margin-top: 30px;
@@ -484,6 +518,15 @@ footer > a:not(.brand):hover { color: var(--yellow); }
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 1.1s var(--ease-soft) .45s;
 }
+.js .passport:not(.is-in) .flags img { opacity: 0; scale: .6; }
+.js .passport.is-in .flags img { transition: opacity .5s var(--ease-soft), scale .6s var(--ease-out), transform .35s var(--ease-out); }
+.js .passport.is-in .flags li:nth-child(1) img { transition-delay: 0.33s, 0.33s, 0s; }
+.js .passport.is-in .flags li:nth-child(2) img { transition-delay: 0.41s, 0.41s, 0s; }
+.js .passport.is-in .flags li:nth-child(3) img { transition-delay: 0.49s, 0.49s, 0s; }
+.js .passport.is-in .flags li:nth-child(4) img { transition-delay: 0.57s, 0.57s, 0s; }
+.js .passport.is-in .flags li:nth-child(5) img { transition-delay: 0.65s, 0.65s, 0s; }
+.js .passport.is-in .flags li:nth-child(6) img { transition-delay: 0.73s, 0.73s, 0s; }
+.js .passport.is-in .flags li:nth-child(7) img { transition-delay: 0.81s, 0.81s, 0s; }
 /* Keep the card hover snappy once revealed */
 .js .work-grid.is-in > .card:hover { transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out); }
 
@@ -494,6 +537,7 @@ footer > a:not(.brand):hover { color: var(--yellow); }
 .paused [data-reveal], .paused .work-grid > .card { opacity: 1 !important; transform: none; translate: none !important; transition: none !important; }
 .paused .hero-in { transform: none !important; }
 .paused .hero-title .line > * { transform: none !important; }
+.paused .flags img { opacity: 1 !important; scale: 1 !important; transition: none !important; }
 .paused .squiggle path { stroke-dashoffset: 0 !important; transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -502,6 +546,7 @@ footer > a:not(.brand):hover { color: var(--yellow); }
   .water-bubbles { display: none; }
   .js .hero-title .line > *, .js .hero-in { transform: none; opacity: 1; }
   .js [data-reveal], .js .work-grid > .card { opacity: 1; translate: none; }
+  .js .passport .flags img { opacity: 1; scale: 1; }
   .squiggle path { stroke-dashoffset: 0 !important; }
 }
 
@@ -546,6 +591,7 @@ footer > a:not(.brand):hover { color: var(--yellow); }
   .hero-art { max-width: 560px; width: 100%; margin: 0 auto; }
 
   .about, .inclusion, .journey, .faq { grid-template-columns: 1fr; gap: 44px; }
+  .passport { grid-template-columns: 1fr; padding: 28px 24px; margin-top: 0; }
   .teacher-photo { max-width: 340px; }
   .inclusion-art { max-width: 560px; }
 
@@ -603,6 +649,10 @@ footer > a:not(.brand):hover { color: var(--yellow); }
   .inclusion-note { font-size: 21px; }
 
   .coming-soon { padding: 32px 22px 28px; }
+  .passport { padding: 24px 18px; }
+  .flags { gap: 18px 4px; }
+  .flags li { flex-basis: calc(25% - 3px); }
+  .flags li { font-size: 13px; }
   .coming-soon strong { font-size: 46px; }
 
   .book-image img { border-width: 6px; border-radius: 14px; transform: rotate(-2deg); }
